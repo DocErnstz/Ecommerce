@@ -7,9 +7,7 @@ import useStyles from './styles';
 
 const Cart = ({ cart, onUpdateCartQty, onRemoveFromCart, onEmptyCart }) => {
   const classes = useStyles();
-
   const handleEmptyCart = () => onEmptyCart();
-
   const renderEmptyCart = () => (
     <Typography variant="subtitle1">You have no items in your shopping cart,
      
