@@ -41,6 +41,7 @@ const Checkout = ({ cart }) => {
 
  
   
+
   const test = (data) => {
     setShippingData(data);
 
@@ -56,8 +57,8 @@ const Checkout = ({ cart }) => {
 
 
   const Form = () => (activeStep === 0
-    ? <AddressForm checkoutToken={checkoutToken} />
-    : <PaymentForm  />);
+    ? <AddressForm checkoutToken={checkoutToken} test={test} />
+    : <PaymentForm   checkoutToken={checkoutToken} />);
 
   return (
     <>
