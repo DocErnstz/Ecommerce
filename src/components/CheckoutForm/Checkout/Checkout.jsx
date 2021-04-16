@@ -20,15 +20,14 @@ const Checkout = ({ cart }) => {
   const backStep = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
 
   useEffect(() => {
+      console.log(cart.id);
     if (cart.id) {
       const generateToken = async () => {
         try {
           const token = await commerce.checkout.generateToken(cart.id, { type: 'cart' });
-         
-
           setCheckoutToken(token);
-          
-          
+         
+         
         } catch {
           console.log("a");
           
@@ -39,9 +38,9 @@ const Checkout = ({ cart }) => {
      
     }
   }, [cart]);
- 
-  console.log(checkoutToken.id);
 
+ 
+  
   const test = (data) => {
     setShippingData(data);
 
@@ -74,7 +73,7 @@ const Checkout = ({ cart }) => {
               </Step>
             ))}
           </Stepper>
-          {activeStep === steps.length ? <Confirmation /> : <Form />}
+          {activeStep === steps.length ? <Confirmation /> : checkoutToken && <Form />}
         </Paper>
       </main>
     </>

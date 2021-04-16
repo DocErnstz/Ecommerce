@@ -16,8 +16,20 @@ const AddressForm = ({ checkoutToken }) => {
     const [shippingOption, setShippingOption] = useState('');
     const methods = useForm();
     
-   
-   
+    const fetchShippingCountries = async (checkoutTokenId) => {
+        const { countries } = await commerce.services.localeListShippingCountries(checkoutTokenId);
+    
+        setShippingCountries(countries);
+        setShippingCountry(Object.keys(countries)[0]);
+       
+      };
+
+      useEffect(() => {
+        fetchShippingCountries(checkoutToken.id);
+      }, []);
+     
+    
+ 
     return (
       <>
         <Typography variant="h6" gutterBottom>Shipping Adress</Typography>
@@ -30,6 +42,16 @@ const AddressForm = ({ checkoutToken }) => {
                <FormInput required name="email" label="Email" />
                <FormInput required name="city" label="City" />
                 <FormInput required name="zip" label="Zip / Postal code" />
+                <Grid item xs={12} sm={6}>
+              <InputLabel>Shipping Country</InputLabel>
+              <Select value={shippingCountry} fullWidth onChange={(e) => setShippingCountry(e.target.value)}>
+                {Object.entries(shippingCountries).map(([code, name]) => ({ id: code, label: name })).map((item) => (
+                  <MenuItem key={item.id} value={item.id}>
+                    {item.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Grid>
             </Grid>
         </form> 
     </FormProvider>
