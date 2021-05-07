@@ -86,7 +86,7 @@ const App = () => {
           <Cart cart={cart}  onUpdateCartQty={handleUpdateCartQty} onRemoveFromCart={handleRemoveFromCart} onEmptyCart={handleEmptyCart} />
         </Route>
         <Route path="/checkout" exact>
-            <Checkout cart={cart} />
+            <Checkout cart={cart} order={order} onCaptureCheckout={handleCaptureCheckout} error={errorMessage}/>
           </Route>
       </Switch>
     </div>

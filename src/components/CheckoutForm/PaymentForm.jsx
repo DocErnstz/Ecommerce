@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Typography, Button, Divider } from '@material-ui/core';
 import { Elements, CardElement, ElementsConsumer } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
 import Review from './Review';
 
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
+const stripePromise = loadStripe("pk_test_51Ih0mYJRVC2hnpsIX5BgSJz10TNjNiXaXGe3DBthenOdQMsMipLqF5Sf2t3G1NyiKxrLQ61bmYaTCwGy1ESZncGq00eOId5nHW");
 
 const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData, onCaptureCheckout }) => {
+  
   const handleSubmit = async (event, elements, stripe) => {
     event.preventDefault();
 
@@ -32,6 +33,7 @@ const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData, onCaptur
           },
         },
       };
+      console.log(shippingData);
 
       onCaptureCheckout(checkoutToken.id, orderData);
 
@@ -41,7 +43,7 @@ const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData, onCaptur
 
   return (
     <>
-      <Review checkoutToken={checkoutToken} />
+    <Review checkoutToken={checkoutToken} />
       <Divider />
       <Typography variant="h6" gutterBottom style={{ margin: '20px 0' }}>Payment method</Typography>
       <Elements stripe={stripePromise}>

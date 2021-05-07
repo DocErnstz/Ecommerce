@@ -9,7 +9,7 @@ import useStyles from './styles';
 
 const steps = ['Shipping address', 'Payment details'];
 
-const Checkout = ({ cart }) => {
+const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
   const [checkoutToken, setCheckoutToken] = useState(null);
   const [activeStep, setActiveStep] = useState(0);
   const [shippingData, setShippingData] = useState({});
@@ -29,7 +29,7 @@ const Checkout = ({ cart }) => {
          
          
         } catch {
-          console.log("a");
+          console.log(error);
           
         }
       };
@@ -44,7 +44,6 @@ const Checkout = ({ cart }) => {
 
   const test = (data) => {
     setShippingData(data);
-
     nextStep();
   };
 
@@ -57,8 +56,8 @@ const Checkout = ({ cart }) => {
 
 
   const Form = () => (activeStep === 0
-    ? <AddressForm checkoutToken={checkoutToken} test={test} />
-    : <PaymentForm   checkoutToken={checkoutToken} />);
+    ? <AddressForm checkoutToken={checkoutToken}  nextStep={nextStep} setShippingData={setShippingData} test={test} />
+    : <PaymentForm   checkoutToken={checkoutToken}  nextStep={nextStep} backStep={backStep} shippingData={shippingData} onCaptureCheckout={onCaptureCheckout} />);
 
   return (
     <>
